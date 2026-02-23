@@ -26,10 +26,12 @@ public class SmartDoorLockTest {
     }
 
     @Test
-    public void testSmartDoorLockSetPinAndLock() {
+    public void testSmartDoorLockSetPinAndLockAndUnlock() {
         final int pin = 1234;
         this.lock.setPin(pin);
         this.lock.lock();
         assertTrue(this.lock.isLocked());
+        this.lock.unlock(pin);
+        assertFalse(this.lock.isLocked());
     }
 }
