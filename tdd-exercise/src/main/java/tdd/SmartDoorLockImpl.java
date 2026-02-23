@@ -7,6 +7,7 @@ public class SmartDoorLockImpl implements SmartDoorLock{
 
     private static final int MAX_PIN = 9999;
     private static final int MIN_PIN = 0;
+    private static final int MAX_FAILED_ATTEMPTS = 3;
     private Optional<Integer> pin = Optional.empty();
     private LockState state = LockState.OPEN;
     private int failCounter;
@@ -20,7 +21,7 @@ public class SmartDoorLockImpl implements SmartDoorLock{
 
     @Override
     public void unlock(int pin) {
-        if (this.pin.isEmpty()) {
+        if (this.pin.isEmpty() || this.failCounter >= MAX_FAILED_ATTEMPTS || this.state.equals(LockState.OPEN)) {
             return;
         }
         if (this.pin.get().equals(pin)) {
@@ -45,12 +46,12 @@ public class SmartDoorLockImpl implements SmartDoorLock{
 
     @Override
     public boolean isBlocked() {
-        return false;
+        return this.failCounter >= MAX_FAILED_ATTEMPTS;
     }
 
     @Override
     public int getMaxAttempts() {
-        return 0;
+        return MAX_FAILED_ATTEMPTS;
     }
 
     @Override

@@ -4,10 +4,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartDoorLockTest {
+    private static final int DEFAULT_TEST_PIN = 1234;
     private SmartDoorLock lock;
 
     @BeforeEach
@@ -28,20 +30,16 @@ public class SmartDoorLockTest {
 
     @Test
     public void testSmartDoorLockSetPinAndLockAndUnlock() {
-        final int pin = 1234;
-        this.lock.setPin(pin);
-        this.lock.lock();
+        this.setDefaultTestPinAndLock();
         assertTrue(this.lock.isLocked());
-        this.lock.unlock(pin);
+        this.lock.unlock(DEFAULT_TEST_PIN);
         assertFalse(this.lock.isLocked());
     }
 
     @Test
     public void testSmartDoorLockIncorrectPin() {
-        final int correctPin = 1234;
         final int incorrectPin = 1111;
-        this.lock.setPin(correctPin);
-        this.lock.lock();
+        this.setDefaultTestPinAndLock();
         this.lock.unlock(incorrectPin);
         assertTrue(this.lock.isLocked());
     }
@@ -58,12 +56,23 @@ public class SmartDoorLockTest {
 
     @Test
     public void testSmartDoorLockFailAttemptsCounterIncrements() {
-        final int correctPin = 1234;
         final int incorrectPin = 1111;
-        this.lock.setPin(correctPin);
-        this.lock.lock();
+        this.setDefaultTestPinAndLock();
         assertEquals(0, this.lock.getFailedAttempts());
         this.lock.unlock(incorrectPin);
         assertEquals(1, this.lock.getFailedAttempts());
+    }
+
+    @Test
+    public void testSmartDoorLockBlockState() {
+        final int incorrectPin = 1111;
+        this.setDefaultTestPinAndLock();
+        IntStream.range(0, this.lock.getMaxAttempts()).forEach(x -> this.lock.unlock(incorrectPin));
+        assertTrue(this.lock.isBlocked());
+    }
+
+    private void setDefaultTestPinAndLock() {
+        this.lock.setPin(DEFAULT_TEST_PIN);
+        this.lock.lock();
     }
 }
