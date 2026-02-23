@@ -28,4 +28,10 @@ public interface BankAccount {
      * @param amount the amount of the withdrawal
      */
     void withdraw(int userID, double amount);
+
+    /**
+     * Returns the current withdraw fee of the bank account.
+     * @return the current withdraw fee.
+     */
+    double getWithdrawFee();
 }

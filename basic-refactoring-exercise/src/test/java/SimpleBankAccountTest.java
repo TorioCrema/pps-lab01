@@ -12,10 +12,10 @@ class SimpleBankAccountTest {
 
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
-    private final static int DEPOSIT_AMOUNT = 100;
-    private final static int WITHDRAW_AMOUNT = 70;
+    private final static double DEPOSIT_AMOUNT = 100;
+    private final static double WITHDRAW_AMOUNT = 70;
     private final static int WRONG_ID = 2;
-    private final static int INITIAL_BALANCE = 0;
+    private final static double INITIAL_BALANCE = 0;
 
     @BeforeEach
     void beforeEach(){
@@ -43,9 +43,8 @@ class SimpleBankAccountTest {
 
     @Test
     void testWithdraw() {
-        this.bankAccount.deposit(this.accountHolder.id(), DEPOSIT_AMOUNT);
-        this.bankAccount.withdraw(this.accountHolder.id(), WITHDRAW_AMOUNT);
-        assertEquals(DEPOSIT_AMOUNT - WITHDRAW_AMOUNT, this.bankAccount.getBalance());
+        this.depositAndWithdrawTest(WITHDRAW_AMOUNT,
+                DEPOSIT_AMOUNT - WITHDRAW_AMOUNT - this.bankAccount.getWithdrawFee());
     }
 
     @Test
@@ -53,5 +52,27 @@ class SimpleBankAccountTest {
         this.bankAccount.deposit(this.accountHolder.id(), DEPOSIT_AMOUNT);
         this.bankAccount.withdraw(WRONG_ID, WITHDRAW_AMOUNT);
         assertEquals(DEPOSIT_AMOUNT, this.bankAccount.getBalance());
+    }
+
+    @Test
+    void testWithdrawOverBalance() {
+        this.depositAndWithdrawTest(DEPOSIT_AMOUNT*2, DEPOSIT_AMOUNT);
+    }
+
+    @Test
+    void testWithdrawNegativeAmount() {
+        this.depositAndWithdrawTest(-DEPOSIT_AMOUNT, DEPOSIT_AMOUNT);
+    }
+
+    @Test
+    void testDepositNegativeAmount() {
+        this.bankAccount.deposit(this.accountHolder.id(), -DEPOSIT_AMOUNT);
+        assertEquals(INITIAL_BALANCE, this.bankAccount.getBalance());
+    }
+
+    private void depositAndWithdrawTest(final double withdrawAmount, final double expectedBalance) {
+        this.bankAccount.deposit(this.accountHolder.id(), DEPOSIT_AMOUNT);
+        this.bankAccount.withdraw(this.accountHolder.id(), withdrawAmount);
+        assertEquals(expectedBalance, this.bankAccount.getBalance());
     }
 }
