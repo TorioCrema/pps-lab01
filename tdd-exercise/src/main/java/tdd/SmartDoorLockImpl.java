@@ -9,6 +9,7 @@ public class SmartDoorLockImpl implements SmartDoorLock{
     private static final int MIN_PIN = 0;
     private Optional<Integer> pin = Optional.empty();
     private LockState state = LockState.OPEN;
+    private int failCounter;
 
     @Override
     public void setPin(int pin) {
@@ -19,8 +20,13 @@ public class SmartDoorLockImpl implements SmartDoorLock{
 
     @Override
     public void unlock(int pin) {
-        if (this.pin.isPresent() && this.pin.get().equals(pin)) {
+        if (this.pin.isEmpty()) {
+            return;
+        }
+        if (this.pin.get().equals(pin)) {
             this.state = LockState.OPEN;
+        } else {
+            this.failCounter++;
         }
     }
 
@@ -49,7 +55,7 @@ public class SmartDoorLockImpl implements SmartDoorLock{
 
     @Override
     public int getFailedAttempts() {
-        return 0;
+        return this.failCounter;
     }
 
     @Override

@@ -14,6 +14,7 @@ public class SmartDoorLockTest {
     public void beforeEach() {
         this.lock = new SmartDoorLockImpl();
     }
+
     @Test
     public void testSmartDoorLockInitialState() {
         assertFalse(this.lock.isLocked());
@@ -53,5 +54,16 @@ public class SmartDoorLockTest {
         assertThrows(IllegalStateException.class, lock::lock);
         this.lock.setPin(invalidPinTooSmall);
         assertThrows(IllegalStateException.class, lock::lock);
+    }
+
+    @Test
+    public void testSmartDoorLockFailAttemptsCounterIncrements() {
+        final int correctPin = 1234;
+        final int incorrectPin = 1111;
+        this.lock.setPin(correctPin);
+        this.lock.lock();
+        assertEquals(0, this.lock.getFailedAttempts());
+        this.lock.unlock(incorrectPin);
+        assertEquals(1, this.lock.getFailedAttempts());
     }
 }
