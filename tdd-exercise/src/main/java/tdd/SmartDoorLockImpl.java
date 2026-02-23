@@ -21,7 +21,7 @@ public class SmartDoorLockImpl implements SmartDoorLock{
 
     @Override
     public void unlock(int pin) {
-        if (this.pin.isEmpty() || this.failCounter >= MAX_FAILED_ATTEMPTS || !this.isLocked()) {
+        if (this.pin.isEmpty() || this.isBlocked() || !this.isLocked()) {
             return;
         }
         if (this.pin.get().equals(pin)) {
@@ -61,6 +61,7 @@ public class SmartDoorLockImpl implements SmartDoorLock{
 
     @Override
     public void reset() {
-
+        this.locked = false;
+        this.failCounter = 0;
     }
 }

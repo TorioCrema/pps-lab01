@@ -65,14 +65,28 @@ public class SmartDoorLockTest {
 
     @Test
     public void testSmartDoorLockBlockState() {
-        final int incorrectPin = 1111;
         this.setDefaultTestPinAndLock();
-        IntStream.range(0, this.lock.getMaxAttempts()).forEach(x -> this.lock.unlock(incorrectPin));
+        this.blockLock();
         assertTrue(this.lock.isBlocked());
+    }
+
+    @Test
+    public void testSmartDoorLockResets() {
+        this.setDefaultTestPinAndLock();
+        this.blockLock();
+        this.lock.reset();
+        assertFalse(this.lock.isLocked());
+        assertFalse(this.lock.isBlocked());
+        assertEquals(0, this.lock.getFailedAttempts());
     }
 
     private void setDefaultTestPinAndLock() {
         this.lock.setPin(DEFAULT_TEST_PIN);
         this.lock.lock();
+    }
+
+    private void blockLock() {
+        final int incorrectPin = 1111;
+        IntStream.range(0, this.lock.getMaxAttempts()).forEach(x -> this.lock.unlock(incorrectPin));
     }
 }
