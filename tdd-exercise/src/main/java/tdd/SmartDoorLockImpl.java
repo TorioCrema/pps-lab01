@@ -5,12 +5,16 @@ import java.util.concurrent.locks.Lock;
 
 public class SmartDoorLockImpl implements SmartDoorLock{
 
+    private static final int MAX_PIN = 9999;
+    private static final int MIN_PIN = 0;
     private Optional<Integer> pin = Optional.empty();
     private LockState state = LockState.OPEN;
 
     @Override
     public void setPin(int pin) {
-        this.pin = Optional.of(pin);
+        if (pin <= MAX_PIN && pin >= MIN_PIN) {
+            this.pin = Optional.of(pin);
+        }
     }
 
     @Override

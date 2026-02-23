@@ -34,4 +34,24 @@ public class SmartDoorLockTest {
         this.lock.unlock(pin);
         assertFalse(this.lock.isLocked());
     }
+
+    @Test
+    public void testSmartDoorLockIncorrectPin() {
+        final int correctPin = 1234;
+        final int incorrectPin = 1111;
+        this.lock.setPin(correctPin);
+        this.lock.lock();
+        this.lock.unlock(incorrectPin);
+        assertTrue(this.lock.isLocked());
+    }
+
+    @Test
+    public void testSmartDoorLockInvalidPin() {
+        final int invalidPinTooGreat = 10_000;
+        final int invalidPinTooSmall = -1;
+        this.lock.setPin(invalidPinTooGreat);
+        assertThrows(IllegalStateException.class, lock::lock);
+        this.lock.setPin(invalidPinTooSmall);
+        assertThrows(IllegalStateException.class, lock::lock);
+    }
 }
