@@ -9,7 +9,7 @@ public class SmartDoorLockImpl implements SmartDoorLock{
     private static final int MIN_PIN = 0;
     private static final int MAX_FAILED_ATTEMPTS = 3;
     private Optional<Integer> pin = Optional.empty();
-    private LockState state = LockState.OPEN;
+    private boolean locked;
     private int failCounter;
 
     @Override
@@ -21,11 +21,11 @@ public class SmartDoorLockImpl implements SmartDoorLock{
 
     @Override
     public void unlock(int pin) {
-        if (this.pin.isEmpty() || this.failCounter >= MAX_FAILED_ATTEMPTS || this.state.equals(LockState.OPEN)) {
+        if (this.pin.isEmpty() || this.failCounter >= MAX_FAILED_ATTEMPTS || !this.isLocked()) {
             return;
         }
         if (this.pin.get().equals(pin)) {
-            this.state = LockState.OPEN;
+            this.locked = false;
         } else {
             this.failCounter++;
         }
@@ -36,12 +36,12 @@ public class SmartDoorLockImpl implements SmartDoorLock{
         if (this.pin.isEmpty()) {
             throw new IllegalStateException("Cannot lock without pin");
         }
-        this.state = LockState.LOCKED;
+        this.locked = true;
     }
 
     @Override
     public boolean isLocked() {
-        return this.state.equals(LockState.LOCKED);
+        return this.locked;
     }
 
     @Override
