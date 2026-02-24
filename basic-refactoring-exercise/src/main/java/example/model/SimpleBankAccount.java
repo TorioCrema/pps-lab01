@@ -7,7 +7,6 @@ package example.model;
  */
 public class SimpleBankAccount implements BankAccount {
 
-    private final double withdraw_fee = 1;
     private double balance;
     private final AccountHolder holder;
 
@@ -33,13 +32,10 @@ public class SimpleBankAccount implements BankAccount {
         if (amount <= 0 || !this.checkUser(userID)) {
             return;
         }
-        if (isWithdrawAllowed(amount + this.withdraw_fee)) {
-            this.balance -= (amount + this.withdraw_fee);
+        if (isWithdrawAllowed(amount)) {
+            this.balance -= amount;
         }
     }
-
-    @Override
-    public double getWithdrawFee() { return this.withdraw_fee; }
 
     private boolean isWithdrawAllowed(final double amount){
         return this.balance >= amount;

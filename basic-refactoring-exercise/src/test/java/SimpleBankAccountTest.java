@@ -44,7 +44,7 @@ class SimpleBankAccountTest {
     @Test
     void testWithdraw() {
         this.depositAndWithdrawTest(WITHDRAW_AMOUNT,
-                DEPOSIT_AMOUNT - WITHDRAW_AMOUNT - this.bankAccount.getWithdrawFee());
+                DEPOSIT_AMOUNT - WITHDRAW_AMOUNT);
     }
 
     @Test
