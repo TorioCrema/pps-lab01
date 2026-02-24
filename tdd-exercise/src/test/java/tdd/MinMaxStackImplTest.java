@@ -79,6 +79,16 @@ class MinMaxStackImplTest {
         assertFalse(this.stack.isEmpty());
     }
 
+    @Test
+    public void testGetMin() {
+        this.stack.push(this.element);
+        assertEquals(this.element, this.stack.getMin());
+        this.stack.push(this.element + 1);
+        assertEquals(this.element, this.stack.getMin());
+        this.stack.push(this.element - 1);
+        assertEquals(this.element - 1, this.stack.getMin());
+    }
+
     private void pushMany(final int times) {
         IntStream.range(0, times).forEach(x -> this.stack.push(this.element));
     }
