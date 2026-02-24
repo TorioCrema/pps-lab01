@@ -15,6 +15,10 @@ class MinMaxStackImplTest {
     private int smallerElement;
     private int biggerElement;
 
+    private void pushMany(final int times) {
+        IntStream.range(0, times).forEach(x -> this.stack.push(this.element));
+    }
+
     @BeforeEach
     public void beforeEach() {
         this.stack = new MinMaxStackImpl();
@@ -101,10 +105,6 @@ class MinMaxStackImplTest {
         assertEquals(this.element, this.stack.getMax());
         this.stack.push(this.biggerElement);
         assertEquals(this.biggerElement, this.stack.getMax());
-    }
-
-    private void pushMany(final int times) {
-        IntStream.range(0, times).forEach(x -> this.stack.push(this.element));
     }
 
     @Test
