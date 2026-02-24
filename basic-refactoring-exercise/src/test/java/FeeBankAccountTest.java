@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FeeBankAccountTest {
     private BankAccount bankAccount;
     private AccountHolder accountHolder;
+    private final double depositAmount = 100;
 
     @BeforeEach
     public void beforeEach() {
@@ -23,8 +24,16 @@ public class FeeBankAccountTest {
 
     @Test
     public void testCorrectDeposit() {
-        final double depositAmount = 100;
         this.bankAccount.deposit(this.accountHolder.id(), depositAmount);
         assertEquals(depositAmount, this.bankAccount.getBalance());
+    }
+
+    @Test
+    public void testCorrectWithdraw() {
+        final double withdrawAmount = 50;
+        final double feeAmount = 1;
+        this.bankAccount.deposit(this.accountHolder.id(), this.depositAmount);
+        this.bankAccount.withdraw(this.accountHolder.id(), withdrawAmount);
+        assertEquals(this.depositAmount - withdrawAmount - feeAmount, this.bankAccount.getBalance());
     }
 }
