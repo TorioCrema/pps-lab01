@@ -107,4 +107,12 @@ class MinMaxStackImplTest {
         IntStream.range(0, times).forEach(x -> this.stack.push(this.element));
     }
 
+    @Test
+    public void testPopChangesMaxValue() {
+        this.stack.push(this.element);
+        this.stack.push(this.biggerElement);
+        this.stack.pop();
+        assertEquals(this.element, this.stack.getMax());
+    }
+
 }

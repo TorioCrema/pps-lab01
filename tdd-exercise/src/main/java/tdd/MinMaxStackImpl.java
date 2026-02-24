@@ -20,7 +20,11 @@ public class MinMaxStackImpl implements MinMaxStack {
         if (this.stack.isEmpty()) {
             throw new IllegalStateException("Cannot pop when empty.");
         } else {
-            return this.stack.remove(this.stack.size() - 1);
+            final int popped = this.stack.remove(this.stack.size() - 1);
+            if (popped == this.max) {
+                this.max = this.stack.stream().max((x, y) -> x > y ? x : y).orElseGet(() -> this.max);
+            }
+            return popped;
         }
     }
 
