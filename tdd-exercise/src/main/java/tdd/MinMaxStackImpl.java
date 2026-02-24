@@ -24,6 +24,9 @@ public class MinMaxStackImpl implements MinMaxStack {
             if (popped == this.max) {
                 this.max = this.stack.stream().max((x, y) -> x > y ? x : y).orElseGet(() -> this.max);
             }
+            if (popped == this.min) {
+                this.min = this.stack.stream().min((x, y) -> x > y ? y : x).orElseGet(() -> this.min);
+            }
             return popped;
         }
     }

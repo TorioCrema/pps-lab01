@@ -115,4 +115,12 @@ class MinMaxStackImplTest {
         assertEquals(this.element, this.stack.getMax());
     }
 
+    @Test
+    public void testPopChangesMinValue() {
+        this.stack.push(this.element);
+        this.stack.push(this.smallerElement);
+        this.stack.pop();
+        assertEquals(this.element, this.stack.getMin());
+    }
+
 }
