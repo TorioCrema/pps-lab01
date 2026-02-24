@@ -13,17 +13,17 @@ public class MinMaxStackImpl implements MinMaxStack {
 
     @Override
     public int peek() {
-        return 0;
+        throw new IllegalStateException("Cannot peek when empty.");
     }
 
     @Override
     public int getMin() {
-        return 0;
+        throw new IllegalStateException("Cannot get minimum value when empty.");
     }
 
     @Override
     public int getMax() {
-        return 0;
+        throw new IllegalStateException("Cannot get maximum value when empty.");
     }
 
     @Override

@@ -22,4 +22,19 @@ class MinMaxStackImplTest {
     public void testPopThrowsWhenEmpty() {
         assertThrows(IllegalStateException.class, this.stack::pop);
     }
+
+    @Test
+    public void testPeekThrowsWhenEmpty() {
+        assertThrows(IllegalStateException.class, this.stack::peek);
+    }
+
+    @Test
+    public void testGetMinThrowsWhenEmpty() {
+        assertThrows(IllegalStateException.class, this.stack::getMin);
+    }
+
+    @Test
+    public void testGetMaxThrowsWhenEmpty() {
+        assertThrows(IllegalStateException.class, this.stack::getMax);
+    }
 }
