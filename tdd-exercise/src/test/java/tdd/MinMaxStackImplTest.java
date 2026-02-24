@@ -62,6 +62,13 @@ class MinMaxStackImplTest {
     }
 
     @Test
+    public void testPeekLeavesStackUnchanged() {
+        this.stack.push(this.element);
+        this.stack.peek();
+        assertFalse(this.stack.isEmpty());
+    }
+
+    @Test
     public void testSizeIncreasesAfterPush() {
         this.pushMany(this.pushTimes);
         assertEquals(this.pushTimes, this.stack.size());
