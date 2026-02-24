@@ -12,11 +12,15 @@ class MinMaxStackImplTest {
     private int element;
     private int pushTimes;
     private int lastElement;
+    private int smallerElement;
+    private int biggerElement;
 
     @BeforeEach
     public void beforeEach() {
         this.stack = new MinMaxStackImpl();
-        this.element = 1;
+        this.element = 3;
+        this.smallerElement = this.element - 1;
+        this.biggerElement = this.element + 1;
         this.pushTimes = 5;
         this.lastElement = 2;
     }
@@ -83,10 +87,20 @@ class MinMaxStackImplTest {
     public void testGetMin() {
         this.stack.push(this.element);
         assertEquals(this.element, this.stack.getMin());
-        this.stack.push(this.element + 1);
+        this.stack.push(this.biggerElement);
         assertEquals(this.element, this.stack.getMin());
-        this.stack.push(this.element - 1);
-        assertEquals(this.element - 1, this.stack.getMin());
+        this.stack.push(this.smallerElement);
+        assertEquals(this.smallerElement, this.stack.getMin());
+    }
+
+    @Test
+    public void testGetMax() {
+        this.stack.push(this.element);
+        assertEquals(this.element, this.stack.getMax());
+        this.stack.push(this.smallerElement);
+        assertEquals(this.element, this.stack.getMax());
+        this.stack.push(this.biggerElement);
+        assertEquals(this.biggerElement, this.stack.getMax());
     }
 
     private void pushMany(final int times) {
