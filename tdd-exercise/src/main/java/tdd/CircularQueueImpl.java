@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CircularQueueImpl implements CircularQueue {
     private static final int DEFAULT_CAPACITY = 5;
-    
+
     private final int capacity;
     private final List<Integer> list = new ArrayList<>();
 
@@ -39,6 +39,11 @@ public class CircularQueueImpl implements CircularQueue {
 
     @Override
     public int peek() {
-        return this.list.get(this.list.size() - 1);
+        return this.list.get(0);
+    }
+
+    @Override
+    public int pop() {
+        return this.list.remove(0);
     }
 }

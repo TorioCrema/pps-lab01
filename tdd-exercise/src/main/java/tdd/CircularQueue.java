@@ -41,4 +41,11 @@ public interface CircularQueue {
      * @return The first element in the queue.
      */
     int peek();
+
+    /**
+     * Returns the first element in the queue and removes it.
+     *
+     * @return the first element in the queue.
+     */
+    int pop();
 }

@@ -35,4 +35,15 @@ public class CircularListTest {
         assertFalse(this.queue.isEmpty());
         assertEquals(element, this.queue.peek());
     }
+
+    @Test
+    public void testPopRemovesFirstElement() {
+        final int element = 1;
+        final int lastElement = 2;
+        this.queue.push(element);
+        this.queue.push(lastElement);
+        assertEquals(element, this.queue.pop());
+        assertEquals(lastElement, this.queue.peek());
+        assertFalse(this.queue.isEmpty());
+    }
 }
