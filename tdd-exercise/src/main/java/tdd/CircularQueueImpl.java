@@ -35,6 +35,9 @@ public class CircularQueueImpl implements CircularQueue {
     @Override
     public void push(final int element) {
         this.list.add(element);
+        if (this.list.size() > this.capacity) {
+            this.pop();
+        }
     }
 
     @Override
