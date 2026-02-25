@@ -42,11 +42,19 @@ public class CircularQueueImpl implements CircularQueue {
 
     @Override
     public int peek() {
+        this.throwIfEmpty("Cannot peek when queue is empty.");
         return this.list.get(0);
     }
 
     @Override
     public int pop() {
+        this.throwIfEmpty("Cannot pop when queue is empty.");
         return this.list.remove(0);
+    }
+
+    private void throwIfEmpty(final String message) {
+        if (this.isEmpty()) {
+            throw new IllegalStateException(message);
+        }
     }
 }

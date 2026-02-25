@@ -57,4 +57,14 @@ public class CircularListTest {
         IntStream.rangeClosed(1 + numLostElements, exceedingElement).forEach(x -> assertEquals(x, this.queue.pop()));
         assertTrue(this.queue.isEmpty());
     }
+
+    @Test
+    public void testPeekThrowsWhenEmpty() {
+        assertThrows(IllegalStateException.class, this.queue::peek);
+    }
+
+    @Test
+    public void testPopThrowsWhenEmpty() {
+        assertThrows(IllegalStateException.class, this.queue::pop);
+    }
 }

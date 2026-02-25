@@ -29,7 +29,8 @@ public interface CircularQueue {
     int getCapacity();
 
     /**
-     * Pushes one element in the queue.
+     * Pushes one element in the queue. If adding the new element makes the
+     * queue size exceed max capacity the oldest element is removed.
      *
      * @param element The element to push.
      */
