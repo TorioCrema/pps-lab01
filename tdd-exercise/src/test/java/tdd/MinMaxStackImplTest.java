@@ -129,5 +129,4 @@ class MinMaxStackImplTest {
         this.stack.pop();
         assertEquals(this.element, this.stack.getMin());
     }
-
 }

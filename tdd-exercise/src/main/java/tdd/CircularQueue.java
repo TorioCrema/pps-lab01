@@ -13,4 +13,11 @@ package tdd;
  *   - Introduce methods in the interface in order to make the tests pass.
  *   - Refactor
  */
-public interface CircularQueue { }
+public interface CircularQueue {
+    /**
+     * Checks if the queue is empty.
+     *
+     * @return true if the queue is empty, false otherwise.
+     */
+    public boolean isEmpty();
+}
