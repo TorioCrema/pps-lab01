@@ -40,6 +40,7 @@ public interface CircularQueue {
      * Returns the first element in the queue, without removing it.
      *
      * @return The first element in the queue.
+     * @throws IllegalStateException if the queue is empty.
      */
     int peek();
 
@@ -47,6 +48,7 @@ public interface CircularQueue {
      * Returns the first element in the queue and removes it.
      *
      * @return the first element in the queue.
+     * @throws IllegalStateException if the queue is empty.
      */
     int pop();
 }
