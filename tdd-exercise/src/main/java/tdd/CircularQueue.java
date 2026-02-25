@@ -19,5 +19,12 @@ public interface CircularQueue {
      *
      * @return true if the queue is empty, false otherwise.
      */
-    public boolean isEmpty();
+    boolean isEmpty();
+
+    /**
+     * Gets the queue's maximum capacity.
+     *
+     * @return The maximum capacity of the queue.
+     */
+    int getCapacity();
 }
