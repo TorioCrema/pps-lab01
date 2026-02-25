@@ -1,24 +1,38 @@
 package tdd;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The test suite for testing the CircularList implementation
  */
 public class CircularListTest {
+    private CircularQueue queue;
+    private int default_capacity;
+
+    @BeforeEach
+    public void beforeEach() {
+        this.queue = new CircularQueueImpl();
+        this.default_capacity = 5;
+    }
+
     @Test
     public void testListIsInitiallyEmpty() {
-        final CircularQueue queue = new CircularQueueImpl();
-        assertTrue(queue.isEmpty());
+        assertTrue(this.queue.isEmpty());
     }
 
     @Test
     public void testCapacity() {
-        final int capacity = 3;
-        final CircularQueue queue = new CircularQueueImpl(capacity);
-        assertEquals(capacity, queue.getCapacity());
+        assertEquals(this.default_capacity, this.queue.getCapacity());
+    }
+
+    @Test
+    public void testPushAndPeek() {
+        final int element = 1;
+        this.queue.push(element);
+        assertFalse(this.queue.isEmpty());
+        assertEquals(element, this.queue.peek());
     }
 }

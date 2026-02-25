@@ -27,4 +27,18 @@ public interface CircularQueue {
      * @return The maximum capacity of the queue.
      */
     int getCapacity();
+
+    /**
+     * Pushes one element in the queue.
+     *
+     * @param element The element to push.
+     */
+    void push(final int element);
+
+    /**
+     * Returns the first element in the queue, without removing it.
+     *
+     * @return The first element in the queue.
+     */
+    int peek();
 }
